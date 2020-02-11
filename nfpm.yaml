@@ -1,0 +1,29 @@
+# nfpm example config file
+name: "blackbox_exporter"
+arch: "amd64"
+platform: "linux"
+version: "v0.16.0"
+section: "default"
+priority: "extra"
+maintainer: "Francis Begyn <francis@begyn.be>"
+description: |
+  Blackbox prober exporter
+vendor: "Francis"
+homepage: "https://github.com/prometheus/blackbox_exporter"
+license: "MIT"
+bindir: "/usr/sbin"
+files:
+  ./blackbox_exporter.service: "/etc/systemd/system/blackbox_exporter.service"
+  ./bin/blackbox_exporter: "/usr/sbin/blackbox_exporter"
+config_files:
+  ./blackbox.yml: "/etc/blackbox_exporter/blackbox.yml"
+overrides:
+  rpm:
+    scripts:
+      preinstall: ./scripts/preinstall.sh
+      postremove: ./scripts/postremove.sh
+  deb:
+    scripts:
+      postinstall: ./scripts/postinstall.sh
+      preremove: ./scripts/preremove.sh
+      postremove: ./scripts/postremove.sh
