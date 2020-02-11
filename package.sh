@@ -2,7 +2,7 @@
 
 ./fetch.sh $1 $2
 
-nfpm pkg --target blackbox_exporter.deb
+nfpm pkg --target blackbox_exporter-$1.$2.deb
 
 rm -rf ./bin
 rm -rf ./blackbox.yml
