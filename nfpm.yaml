@@ -3,27 +3,24 @@ name: "blackbox-exporter"
 arch: "amd64"
 platform: "linux"
 version: "vx.y.z"
+release: 1
 section: "default"
 priority: "extra"
 maintainer: "Francis Begyn <francis@begyn.be>"
 description: |
   Blackbox prober exporter
-vendor: "Francis"
+vendor: "Prometheus"
 homepage: "https://github.com/prometheus/blackbox_exporter"
-license: "MIT"
-bindir: "/usr/sbin"
-files:
-  ./blackbox_exporter.service: "/etc/systemd/system/blackbox_exporter.service"
-  ./bin/blackbox_exporter: "/usr/sbin/blackbox_exporter"
-config_files:
-  ./blackbox.yml: "/etc/blackbox_exporter/blackbox.yml"
-overrides:
-  rpm:
-    scripts:
-      preinstall: ./scripts/preinstall.sh
-      postremove: ./scripts/postremove.sh
-  deb:
-    scripts:
-      postinstall: ./scripts/postinstall.sh
-      preremove: ./scripts/preremove.sh
-      postremove: ./scripts/postremove.sh
+license: "Apache license 2"
+contents:
+  - src: ./blackbox_exporter.service
+    dst: /etc/systemd/system/blackbox_exporter.service
+  - src: ./blackbox_exporter
+    dst: /usr/sbin/blackbox_exporter
+  - src: ./blackbox.yml
+    dst: /etc/blackbox_exporter/blackbox.yml
+    type: config|noreplace
+scripts:
+  postinstall: ./scripts/postinstall.sh
+  preremove: ./scripts/preremove.sh
+  postremove: ./scripts/postremove.sh
